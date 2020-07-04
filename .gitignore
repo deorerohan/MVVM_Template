@@ -4,3 +4,9 @@
 
 /bin
 /obj
+MVVM_Template/bin/
+MVVM_Template/obj/
+Model/bin/
+Model/obj/
+ViewModel/bin/
+ViewModel/obj/

@@ -1,7 +1,7 @@
 using Terminal.Gui;
 
 class Demo {
-	static void Main ()
+	static void Main1 ()
 	{
 		Application.Init ();
 		var top = Application.Top;
@@ -71,6 +71,8 @@ class Demo {
 
     static public bool Close()
     {
+		var n = MessageBox.Query(100, 100, "Quit Demo", "Are you sure you want to quit this demo?", "Yes", "No");
+		
 		Application.Shutdown();
         return false;
     }
