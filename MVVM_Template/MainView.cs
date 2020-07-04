@@ -34,8 +34,6 @@ namespace MVVM_Template
         {
             vm = new MainViewModel();
             vm.PropertyChanged += PropertyChanged_Handler;
-
-            vm.ChangeValues();
         }
 
         /// <summary>
@@ -58,8 +56,57 @@ namespace MVVM_Template
         /// </summary>
         public void RunApplication()
         {
-            Console.WriteLine("Hello World!");
-            Console.WriteLine(SomeValue);
+            Console.WriteLine("Hello User!");
+            Console.WriteLine("Welcome to MVVM bank");
+            var loopStatus = true;
+            while(loopStatus)
+            {
+                Console.Clear();
+                Console.WriteLine("Choose options:");
+                Console.WriteLine("1. Add customer");
+                Console.WriteLine("2. Deposit money to account");
+                Console.WriteLine("3. Withdraw money from account");
+                Console.WriteLine("4. Check account balance");
+                Console.WriteLine("5. Exit");
+                var userInput = Console.ReadLine();
+                int inputValue = -1;
+                if(!int.TryParse(userInput, out inputValue))
+                {
+                    Console.WriteLine("Invalid inputs exiting from application");
+                }
+
+                switch (inputValue)
+                {
+                    case 1:
+                    {
+                        Console.WriteLine("Adding customer");
+                        Console.WriteLine("Enter customer name : ");
+                        vm.AddCustomer(Console.ReadLine());
+                    }
+                    break;
+                    case 2:
+                    {
+                        Console.WriteLine("Depositing money");
+                        vm.DepositMoney();
+                    }
+                    break;
+                    case 3:
+                    {
+                        Console.WriteLine("Withdrawing money");
+                        vm.WithdrawMoney();
+                    }
+                    break;
+                    case 4:
+                    {
+                        Console.WriteLine("Checking account balance");
+                        vm.CheckBalance();
+                    }
+                    break;
+                    default:
+                        loopStatus = false;
+                    break;
+                }
+            }
         }
     }
 }

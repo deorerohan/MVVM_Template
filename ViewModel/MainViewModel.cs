@@ -29,12 +29,32 @@ namespace ViewModel
 
         public MainViewModel()
         {
-            var model = new ModelData();
+            var model = ModelData.Instance;
         }
 
         public void ChangeValues()
         {
             SomeValue = "Value from MainViewModel";
+        }
+
+        public void AddCustomer(string name)
+        {
+            ModelData.Instance.AddCustomer(name);
+        }
+
+        public void DepositMoney()
+        {
+
+        }
+
+        public void WithdrawMoney()
+        {
+
+        }
+
+        public void CheckBalance()
+        {
+
         }
     }
 }
