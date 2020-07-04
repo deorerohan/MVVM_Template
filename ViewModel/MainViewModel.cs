@@ -51,19 +51,19 @@ namespace ViewModel
             ModelData.Instance.AddCustomer(name);
         }
 
-        public void DepositMoney()
+        public void DepositMoney(uint accID, double amount)
         {
-
+            ModelData.Instance.DepositMoney(accID, amount);
         }
 
-        public void WithdrawMoney()
+        public void WithdrawMoney(uint accID, double amount)
         {
-
+            ModelData.Instance.WithdrawMoney(accID, amount);
         }
 
-        public void CheckBalance()
+        public double CheckBalance(uint accountID)
         {
-
+            return ModelData.Instance.CheckBalance(accountID);
         }
     }
 }

@@ -69,5 +69,43 @@ namespace Model
 
             Raise_ShowUserMessage_Event(string.Format("Account {0} added for {1}!", acc.AccountID, name));
         }
+
+        public double CheckBalance(uint accountID)
+        {
+            var account = AccountList.FirstOrDefault(s => s.AccountID == accountID);
+            if (account == null)
+            {
+                Raise_ShowUserMessage_Event("Invalid account number provided!!");
+                return 0;
+            }
+
+            return account.AccountBalance;
+        }
+
+        public void DepositMoney(uint accID, double amount)
+        {
+            var account = AccountList.FirstOrDefault(s => s.AccountID == accID);
+            if (account == null)
+            {
+                Raise_ShowUserMessage_Event("Invalid account number provided!!");
+                return;
+            }
+
+            account.UpdateMoney(amount);
+            Raise_ShowUserMessage_Event(string.Format("Money deposited : {0} to account {1}", amount, accID));
+        }
+
+        public void WithdrawMoney(uint accID, double amount)
+        {
+            var account = AccountList.FirstOrDefault(s => s.AccountID == accID);
+            if (account == null)
+            {
+                Raise_ShowUserMessage_Event("Invalid account number provided!!");
+                return;
+            }
+
+            account.UpdateMoney(-amount);
+            Raise_ShowUserMessage_Event(string.Format("Money withdrawn : {0} to account {1}", amount, accID));
+        }
     }
 }

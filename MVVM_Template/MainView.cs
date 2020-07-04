@@ -54,6 +54,30 @@ namespace MVVM_Template
             }
         }
 
+        private int GetUserInput()
+        {
+            var userInput = Console.ReadLine();
+            int inputValue = -1;
+            if(!int.TryParse(userInput, out inputValue))
+            {
+                Console.WriteLine("Invalid inputs exiting from application");
+            }
+
+            return inputValue;
+        }
+
+        private double GetUserInput_D()
+        {
+            var userInput = Console.ReadLine();
+            double inputValue = -1;
+            if(!double.TryParse(userInput, out inputValue))
+            {
+                Console.WriteLine("Invalid inputs exiting from application");
+            }
+
+            return inputValue;
+        }
+
         /// <summary>
         /// Main loop of application
         /// </summary>
@@ -81,12 +105,7 @@ namespace MVVM_Template
                 Console.WriteLine("3. Withdraw money from account");
                 Console.WriteLine("4. Check account balance");
                 Console.WriteLine("5. Exit");
-                var userInput = Console.ReadLine();
-                int inputValue = -1;
-                if(!int.TryParse(userInput, out inputValue))
-                {
-                    Console.WriteLine("Invalid inputs exiting from application");
-                }
+                int inputValue = GetUserInput();
 
                 switch (inputValue)
                 {
@@ -100,19 +119,30 @@ namespace MVVM_Template
                     case 2:
                     {
                         Console.WriteLine("Depositing money");
-                        vm.DepositMoney();
+                        Console.WriteLine("Enter valid account number : ");
+                        var accNo = GetUserInput();
+                        Console.WriteLine("Enter amount to deposit : ");
+                        var amount = GetUserInput_D();
+                        vm.DepositMoney(Convert.ToUInt32(accNo), amount);
                     }
                     break;
                     case 3:
                     {
                         Console.WriteLine("Withdrawing money");
-                        vm.WithdrawMoney();
+                        Console.WriteLine("Enter valid account number : ");
+                        var accNo = GetUserInput();
+                        Console.WriteLine("Enter amount to deposit : ");
+                        var amount = GetUserInput_D();
+                        vm.WithdrawMoney(Convert.ToUInt32(accNo), amount);
                     }
                     break;
                     case 4:
                     {
                         Console.WriteLine("Checking account balance");
-                        vm.CheckBalance();
+                        Console.WriteLine("Enter valid account number : ");
+                        var accNo = GetUserInput();
+                        Console.WriteLine(string.Format("For account {0} balance is : {1}", accNo, vm.CheckBalance(Convert.ToUInt32(accNo))));
+                        Console.ReadKey();
                     }
                     break;
                     default:
