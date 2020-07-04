@@ -9,9 +9,20 @@ namespace Model
     /// </summary>
     public class ModelData
     {
+
+        public delegate void ShowUserMessage(string msg);
+
+        public event ShowUserMessage ShowUserMessage_Event;
+
         List<Customer> CustomerList = new List<Customer>();
         List<Account> AccountList = new List<Account>();
 
+        /// <summary>
+        /// Constructor is made private so that no one else can create instance of this class
+        /// So there is only single static instance of class.
+        /// Hence called Singleton design pattern.
+        /// This is very useful incase of main data or settings classes.
+        /// </summary>
         private ModelData()
         {
 
@@ -35,6 +46,14 @@ namespace Model
             }
         }
 
+        void Raise_ShowUserMessage_Event(string msg)
+        {
+            if(ShowUserMessage_Event != null)
+            {
+                ShowUserMessage_Event(msg);
+            }
+        }
+
         public void AddCustomer(string name)
         {
             var customer = CustomerList.FirstOrDefault(s => s.Name == name);
@@ -42,10 +61,13 @@ namespace Model
             {
                 customer = new Customer(name);
                 CustomerList.Add(customer);
+                Raise_ShowUserMessage_Event(string.Format("Customer {0} {1} added!", name, customer.CustomerID));
             }
 
             var acc = new Account(customer.CustomerID);
             AccountList.Add(acc);
+
+            Raise_ShowUserMessage_Event(string.Format("Account {0} added for {1}!", acc.AccountID, name));
         }
     }
 }

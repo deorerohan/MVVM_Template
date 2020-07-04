@@ -9,6 +9,9 @@ Project ViewModel and Model represent as they are.
 Singleton design pattern is implemented for ModelData class.
 It's very simple design pattern. We want only one instance of ModelData which is representing bank model data. So that there is no duplicate bank data even by accident.
 
+UIService is created for providing functionalities required for ViewModel.
+So later if we have changed view from Console application to WPF or WebApplication, if we implement UI service properly we will have almost all functionalities like those were implemented in Console application.
+
 ## Random useful tips
 
 - For comments 'C# XML Documentation Comments' extension is very useful.

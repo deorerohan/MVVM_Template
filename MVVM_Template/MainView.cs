@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using ViewModel;
+using System.Collections.Generic;
 
 namespace MVVM_Template
 {
@@ -10,6 +11,7 @@ namespace MVVM_Template
     /// </summary>
     class MainView
     {
+        public List<string> UserUpdates = new List<string>();
         MainViewModel vm;
 
         private string someValue = "Value from MainView";
@@ -32,7 +34,8 @@ namespace MVVM_Template
 
         public MainView()
         {
-            vm = new MainViewModel();
+            var uiService = new UIService(this);
+            vm = new MainViewModel(uiService);
             vm.PropertyChanged += PropertyChanged_Handler;
         }
 
@@ -56,12 +59,22 @@ namespace MVVM_Template
         /// </summary>
         public void RunApplication()
         {
+            var originalForegroundColor = Console.ForegroundColor;
             Console.WriteLine("Hello User!");
             Console.WriteLine("Welcome to MVVM bank");
+            Console.ReadKey();
             var loopStatus = true;
             while(loopStatus)
             {
                 Console.Clear();
+                Console.ForegroundColor = ConsoleColor.Red;
+                foreach (var msg in UserUpdates)
+                {
+                    Console.WriteLine(msg);
+                }
+
+                UserUpdates.Clear();
+                Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.WriteLine("Choose options:");
                 Console.WriteLine("1. Add customer");
                 Console.WriteLine("2. Deposit money to account");
@@ -107,6 +120,8 @@ namespace MVVM_Template
                     break;
                 }
             }
+            
+            Console.ForegroundColor = originalForegroundColor;
         }
     }
 }

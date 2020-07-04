@@ -8,6 +8,8 @@ namespace ViewModel
     /// </summary>
     public class MainViewModel : ViewModelBase
     {
+        IUiService UiService;
+
         private string someValue;
         
         public string SomeValue
@@ -27,9 +29,16 @@ namespace ViewModel
             }
         }
 
-        public MainViewModel()
+        public MainViewModel(IUiService service)
         {
             var model = ModelData.Instance;
+            model.ShowUserMessage_Event += ShowUserMessage;
+            UiService = service;
+        }
+
+        void ShowUserMessage(string msg)
+        {
+            UiService.ShowUserMessage(msg);
         }
 
         public void ChangeValues()
